@@ -19,19 +19,48 @@ async def root():
     return {"message": "Hello World"}
 
 
-@app.get("/employee/{id}")
-async def read_employee(id):
+@app.get("/students/{id}")
+async def read_students(id):
     with Session(engine) as session:
         print(id,'--------------------------------------------------------------')
-        emp = session.get(Employee, id)
+        emp = session.get(Student, id)
         return {"message": emp}
     
 
-@app.post("/employee")
-async def root(employee  : Employee):
+@app.post("/students")
+async def root(Student : Student):
     with Session(engine) as session:
-        session.add(employee)
+        session.add(Student)
         session.commit()
-        session.refresh(employee)
+        session.refresh(Student)
 
+        return {"message": 'created'}
+
+@app.get("/courses/{id}")
+async def read_courses(id):
+    with Session(engine) as session:
+         print(id,'--------------------------------------------------------------')
+         emp = session.get(courses, id)
+         return {"message": emp}
+
+
+@app.post("/courses")
+async def root(Course: Course):
+        session.add(Course)
+        session.commit()
+        session.refresh(Course)
+        return {"message": 'created'}
+
+@app.get("/teachers/{id}")
+async def read_teachers(id):
+    with Session(engine) as session:
+             print(id,'--------------------------------------------------------------')
+             emp = session.get(courses, id)
+             return {"message": emp}
+    
+@app.post("/teachers")
+async def root(Teacher: Teacher):
+        session.add(Teacher)
+        session.commit()
+        session.refresh(Teacher)
         return {"message": 'created'}
